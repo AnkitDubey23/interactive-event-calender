@@ -1,7 +1,9 @@
 "use client";
 
+"use client";
+
 import React, { useState } from "react";
-import EventCalendar from "./components/Calender";
+import EventCalendar from "./components/Calendar";
 import EventModal from "./components/EventModal";
 
 export default function Home() {
@@ -45,8 +47,8 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>Event Scheduler</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center py-10 bg-gray-100">
+      <h1 className="text-2xl font-bold mb-6">Event Scheduler</h1>
       <EventCalendar events={events} onDayClick={handleDayClick} />
       {selectedDate && (
         <EventModal
@@ -57,12 +59,6 @@ export default function Home() {
           onClose={closeModal}
         />
       )}
-      <style jsx>{`
-        h1 {
-          text-align: center;
-          margin: 15px 0;
-        }
-      `}</style>
     </div>
   );
 }

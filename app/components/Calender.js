@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { format, addMonths, subMonths } from "date-fns";
+import { format } from "date-fns";
 
 export default function EventCalendar({ events, onDayClick }) {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -11,7 +11,7 @@ export default function EventCalendar({ events, onDayClick }) {
   };
 
   return (
-    <div className="calendar-container">
+    <div className="w-full max-w-sm mx-auto">
       <Calendar
         onClickDay={handleDayClick}
         value={currentDate}
@@ -29,7 +29,10 @@ export default function EventCalendar({ events, onDayClick }) {
               );
 
               return (
-                <div aria-label={formattedDate} className="event-marker">
+                <div
+                  aria-label={formattedDate}
+                  className="text-red-500 text-center text-xs"
+                >
                   📅
                 </div>
               );
@@ -37,25 +40,8 @@ export default function EventCalendar({ events, onDayClick }) {
           }
           return null;
         }}
+        className="shadow-lg rounded-lg"
       />
-      <style jsx>{`
-        .calendar-container {
-          width: 100%;
-          max-width: 400px;
-          margin: auto;
-        }
-        .calendar-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 10px;
-        }
-        .event-marker {
-          text-align: center;
-          font-size: 12px;
-          color: red;
-        }
-      `}</style>
     </div>
   );
 }
