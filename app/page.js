@@ -1,9 +1,7 @@
 "use client";
 
-"use client";
-
 import React, { useState } from "react";
-import EventCalendar from "./components/Calendar";
+import EventCalendar from "./components/Calender";
 import EventModal from "./components/EventModal";
 
 export default function Home() {
@@ -19,27 +17,83 @@ export default function Home() {
     setSelectedEvent(event);
   };
 
+  // const handleSaveEvent = (event) => {
+  //   setEvents((prevEvents) => {
+  //     const eventExists = prevEvents.find((e) => e.id === event.id);
+
+  //     if (eventExists) {
+  //       return prevEvents.map((e) =>
+  //         e.id === event.id ? { ...e, ...event } : e
+  //       );
+  //     } else {
+  //       return [...prevEvents, { ...event, id: Date.now() }];
+  //     }
+  //   });
+  //   setSelectedEvent(null);
+  //   setSelectedDate(null);
+  // };
+
+  // const handleSaveEvent = (event) => {
+  //   setEvents((prevEvents) => {
+  //     const eventExists = prevEvents.find((e) => e.id === event.id);
+  
+  //     if (eventExists) {
+  //       // Update existing event without changing its ID
+  //       return prevEvents.map((e) =>
+  //         e.id === event.id ? { ...e, ...event } : e
+  //       );
+  //     } else {
+  //       // Add new event and generate a new ID
+  //       return [...prevEvents, { ...event, id: event.id || Date.now() }];
+  //     }
+  //   });
+  
+  //   setSelectedEvent(null);
+  //   setSelectedDate(null);
+  // };
+  
+  
+  // const handleDeleteEvent = (eventToDelete) => {
+  //   console.log("Deleting event:", eventToDelete);
+  //   setEvents(events.filter((event) => event.id !== eventToDelete.id));
+  //   setSelectedEvent(null);
+  //   setSelectedDate(null);
+  // };
+
   const handleSaveEvent = (event) => {
+    console.log("Attempting to save event:", event);
+  
     setEvents((prevEvents) => {
       const eventExists = prevEvents.find((e) => e.id === event.id);
-
+  
       if (eventExists) {
+        console.log("Updating existing event:", event);
         return prevEvents.map((e) =>
           e.id === event.id ? { ...e, ...event } : e
         );
       } else {
-        return [...prevEvents, { ...event, id: Date.now() }];
+        const newEvent = { ...event, id: event.id || Date.now() };
+        console.log("Creating new event:", newEvent);
+        return [...prevEvents, newEvent];
       }
     });
+  
     setSelectedEvent(null);
     setSelectedDate(null);
   };
-
+  
   const handleDeleteEvent = (eventToDelete) => {
-    setEvents(events.filter((event) => event.id !== eventToDelete.id));
+    console.log("Deleting event:", eventToDelete);
+  
+    setEvents((prevEvents) =>
+      prevEvents.filter((event) => event.id !== eventToDelete.id)
+    );
+  
     setSelectedEvent(null);
     setSelectedDate(null);
   };
+  
+
 
   const closeModal = () => {
     setSelectedDate(null);
